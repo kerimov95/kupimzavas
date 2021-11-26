@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home/tabs/stores" color="success"></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" slot="end" [routerLink]="['search']">
+        <ion-icon slot="icon-only" name="search-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>{{title}}</ion-title>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-button [routerLink]="['sale']" expand="block" color="danger" shape="round">
+      Ежедневные скидки
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list *ngIf="!StatusLoad">
+    <ion-item *ngFor="let item of [1,1,1,1,1,1,1,1,1,1,1,11,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]">
+      <ion-avatar slot="start">
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </ion-avatar>
+      <ion-label>
+        <h3>
+          <ion-skeleton-text animated style="width: 90%; margin: auto;"></ion-skeleton-text>
+        </h3>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+  <ion-list *ngIf="StatusLoad">
+    <ion-item *ngFor="let item of getGroup()" (click)="navigate(item)">
+      <i slot="start" style="color: #43ba11;" class={{item.icon}}></i>
+      <ion-label>{{item?.name}}</ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

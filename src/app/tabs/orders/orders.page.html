@@ -1,0 +1,101 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Мои заказы</ion-title>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-segment (ionChange)="loadOrder()" [(ngModel)]="currentStatus">
+      <ion-segment-button *ngFor="let item of segment" [value]="item.value">
+        <ion-label>{{item.name}}</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <div *ngIf="!StatusLoad">
+    <ion-card button *ngFor="let item of [1,2,3,4,5]">
+      <ion-item lines="none">
+        <ion-skeleton-text animated style="width: 95%"></ion-skeleton-text>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-icon slot="start" color="medium" name="cart-outline"></ion-icon>
+        <ion-label>
+          <ion-text color="medium">
+            <ion-skeleton-text animated style="width: 95%"></ion-skeleton-text>
+          </ion-text>
+        </ion-label>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-icon slot="start" color="medium" name="alarm-outline"></ion-icon>
+        <ion-label>
+          <ion-text color="medium">
+            <ion-skeleton-text animated style="width: 95%"></ion-skeleton-text>
+          </ion-text>
+        </ion-label>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-icon color="medium" slot="start" name="sync-circle-outline"></ion-icon>
+        <ion-label>
+          <ion-skeleton-text animated style="width: 95%"></ion-skeleton-text>
+        </ion-label>
+      </ion-item>
+      <ion-item lines="none" color="light">
+        <ion-icon slot="start" color="medium" name="card-outline"></ion-icon>
+        <ion-skeleton-text animated style="width: 95%"></ion-skeleton-text>
+      </ion-item>
+    </ion-card>
+  </div>
+  <div *ngIf="StatusLoad">
+    <ion-list style="margin-bottom: 25px;">
+      <ion-card *ngFor="let item of getOreders">
+        <ion-item lines="none">
+          <ion-label class="ion-text-center">Заказ № {{item?.id}}</ion-label>
+          <ion-button *ngIf="item.currentstatus == 5" (click)="acceptOrder(item.id)" expand="block">
+            Я получил заказ
+          </ion-button>
+        </ion-item>
+        <div button (click)="navigate(item.id)">
+          <ion-item lines="none">
+            <ion-icon slot="start" color="primary" name="cart-outline"></ion-icon>
+            <ion-label>
+              <ion-text color="medium">
+                {{item?.storename}}
+              </ion-text>
+            </ion-label>
+          </ion-item>
+          <ion-item lines="none">
+            <ion-icon slot="start" color="primary" name="alarm-outline"></ion-icon>
+            <ion-label>
+              <ion-text color="medium">
+                {{item?.delivery}}
+              </ion-text>
+            </ion-label>
+          </ion-item>
+          <ion-item lines="none">
+            <ion-icon color="warning" slot="start" name="sync-circle-outline"></ion-icon>
+            <ion-label color="warning">
+              {{  getStatus(item?.currentstatus)}}
+            </ion-label>
+          </ion-item>
+          <ion-item lines="none">
+            <ion-text color="medium">
+              <p>
+                {{item?.address}}
+              </p>
+            </ion-text>
+          </ion-item>
+          <ion-item lines="none" color="success">
+            <ion-icon slot="start" name="card-outline"></ion-icon>
+            <ion-label>Сумма заказа</ion-label>
+            <ion-text slot="end">
+              {{item?.totalPrice}} руб.
+            </ion-text>
+          </ion-item>
+        </div>
+      </ion-card>
+    </ion-list>
+  </div>
+</ion-content>

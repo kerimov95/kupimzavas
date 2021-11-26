@@ -1,0 +1,21 @@
+<ion-tabs>
+  <ion-tab-bar slot="bottom">
+    <ion-tab-button tab="stores">
+      <ion-icon name="cart-outline"></ion-icon>
+      <ion-label>Магазин</ion-label>
+    </ion-tab-button>
+    <ion-tab-button tab="basket">
+      <ion-icon name="basket"></ion-icon>
+      <ion-label>Корзина</ion-label>
+      <ion-badge color="success" style="font-size: 8px;">{{getTotal()?.total}}</ion-badge>
+    </ion-tab-button>
+    <ion-tab-button tab="orders">
+      <ion-icon name="list-outline"></ion-icon>
+      <ion-label>Заказы</ion-label>
+    </ion-tab-button>
+    <ion-tab-button tab="profile">
+      <ion-icon name="person-circle"></ion-icon>
+      <ion-label>Аккаунт</ion-label>
+    </ion-tab-button>
+  </ion-tab-bar>
+</ion-tabs>

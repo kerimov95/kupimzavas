@@ -1,0 +1,25 @@
+
+
+.label-text{
+    font-size: 12px;
+  }
+
+.groups-list{
+    display: flex;
+    flex-direction: row;
+    align-items: center;justify-content: space-between;
+}
+
+.list-items{
+
+    padding: 7px 0px;
+    outline: 0!important;    border-bottom: 1px solid #cacaca;
+}
+
+.selectGroup{
+    padding-bottom: 10px;
+}
+
+.ion-segment-button-border{
+    border-radius: 4px;
+}

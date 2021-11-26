@@ -1,0 +1,91 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-button [disabled]="!getBasket()" (click)="clearBasker()" mode="ios" size="small" slot="start"
+            color="danger">
+            Очистить
+        </ion-button>
+        <ion-title slot="start">Корзина</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-list *ngIf="getBasket()">
+        <ion-row style="margin: 1px;">
+            <ion-col size="12" *ngFor="let item of getBasket().poructs;">
+                <ion-card [disabled]="item.currentStatus" style="margin: 1px; height: 100%; position: relative;">
+                    <ion-row>
+                        <ion-col size="4">
+                            <ion-img style="margin: 10px; position: absolute; left: 0; right: 0; top: 0; bottom: 0;"
+                                (click)="productDetail(item.id)" [src]="PathImage(item?.barcode)"></ion-img>
+                        </ion-col>
+                        <ion-col size="8">
+                            <p>
+                                <ion-text>
+                                    {{item.name}} {{item.full_description}} {{item.brand}} {{ item?.weightPackage }}
+                                </ion-text>
+                            </p>
+                            <p>
+                                <ion-text color="success">
+                                    {{getPrice(item.id)}} руб.
+                                </ion-text>
+                                <br />
+                                <ion-text color="warning">
+                                    {{ item.count}} {{item.unit.toLowerCase()}} / {{item.total }} руб.
+                                </ion-text>
+                            </p>
+                            <ion-button (click)="addProduct(item)" size="small" color="success">
+                                <ion-icon name="add"></ion-icon>
+                            </ion-button>
+                            <ion-button (click)="removeProduct(item)" size="small" color="success">
+                                <ion-icon name="remove"></ion-icon>
+                            </ion-button>
+                            <ion-button (click)="delete(item.id)" color="danger" size="small">
+                                <ion-icon name="close-outline"></ion-icon>
+                            </ion-button>
+                        </ion-col>
+                    </ion-row>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+        <ion-card style="margin: 5px;">
+            <ion-item>
+                <ion-icon slot="start" color="success" name="nutrition-outline"></ion-icon>
+                <ion-label>
+                    Товары
+                </ion-label>
+                <ion-text>{{basket.getTotal()?.products}} руб. </ion-text>
+            </ion-item>
+            <ion-item>
+                <ion-icon color="success" slot="start" name="cart-outline"></ion-icon>
+                <ion-label>
+                    Сборка
+                </ion-label>
+                <ion-text>{{basket.getTotal()?.preparation}} руб. </ion-text>
+            </ion-item>
+            <ion-item>
+                <ion-icon color="success" slot="start" name="briefcase-outline"></ion-icon>
+                <ion-label>
+                    Пакеты
+                </ion-label>
+                <ion-text>{{basket.getTotal()?.package}} руб.</ion-text>
+            </ion-item>
+            <ion-item lines="none">
+                <ion-icon color="success" slot="start" name="car-outline"></ion-icon>
+                <ion-label>
+                    Доставка
+                </ion-label>
+                <ion-text>
+                    {{basket.getTotal()?.delivery}} руб.
+                </ion-text>
+            </ion-item>
+        </ion-card>
+    </ion-list>
+</ion-content>
+<ion-footer>
+    <ion-toolbar style="height: 60px;">
+        <ion-button (click)="navigate()" [disabled]="!basket.basket" expand="block">
+            <ion-icon slot="start" name="wallet-outline"></ion-icon>
+            Оформить заказ {{basket.getTotal()?.total}} руб.
+        </ion-button>
+    </ion-toolbar>
+</ion-footer>

@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>*Новый адрес</ion-title>
+    <ion-button color="dark" mode="ios" slot="start" (click)="cancel()" fill="clear" size="small">
+      Отмена
+    </ion-button>
+    <ion-button [disabled]="!this.yandex.currentAddress" mode="ios" color="success" slot="end" (click)="save()"
+      size="small">
+      Сохранить
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div style="position: relative; height: 100%; width: 100%;">
+    <div class="map" id="map" style="height: 100%;"></div>
+  </div>
+</ion-content>

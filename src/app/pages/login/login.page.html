@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-button color="dark" (click)="cancel()" fill="clear" size="small">
+      Отмена
+    </ion-button>
+    <ion-title>Авторизация</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div>
+    <img src="../../../assets/icon/icon.png">
+    <form #form="ngForm">
+      <ion-item lines="full">
+        <ion-icon color="primary" slot="start" name="person-outline"></ion-icon>
+        <ion-label position="stacked">Телефон</ion-label>
+        <ion-input required minlength="10" maxlength="10" type="tel" inputmode="tel" id="login" [(ngModel)]="login"
+          name="username" #Login="ngModel">+7
+        </ion-input>
+      </ion-item>
+      <ion-item lines="full">
+        <ion-icon color="primary" slot="start" name="key-outline"></ion-icon>
+        <ion-label position="stacked">Пароль</ion-label>
+        <ion-input required minlength="3" id="password" autocomplete="on" [(ngModel)]="password" name="password"
+          type="password" inputmode="decimal" #Password="ngModel"></ion-input>
+      </ion-item>
+      <ion-button [disabled]="!form.form.valid" (click)="loginIn()" expand="block">
+        Войти
+      </ion-button>
+      <ion-button (click)="replacePassword(Login.valid)" expand="block" fill="clear" shape="round">
+        Получить пароль
+      </ion-button>
+      <ion-label class="ion-text-center">
+        <p>
+          <ion-text color="danger">
+            {{errorMessage}}
+          </ion-text>
+        </p>
+      </ion-label>
+    </form>
+  </div>
+</ion-content>

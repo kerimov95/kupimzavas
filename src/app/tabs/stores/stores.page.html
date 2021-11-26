@@ -1,0 +1,83 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Магазины</ion-title>
+  </ion-toolbar>
+  <ion-toolbar *ngIf="StatusLoad">
+    <ion-segment (ionChange)="loadStores()" [(ngModel)]="selectedType">
+      <ion-segment-button *ngFor="let item of getTypes()" [value]="item.id">
+        <ion-icon color="success" name="{{item.icon}}"></ion-icon>
+        <ion-label>{{item?.name}}</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+  <ion-toolbar *ngIf="!StatusLoad">
+    <ion-segment value="1" color="light">
+      <ion-segment-button value="1">
+        <ion-icon color="medium" name="restaurant-outline"></ion-icon>
+        <ion-label>
+          <ion-skeleton-text animated style="width: 80px;"></ion-skeleton-text>
+        </ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="2">
+        <ion-icon color="medium" name="cart-outline"></ion-icon>
+        <ion-label>
+          <ion-skeleton-text animated style="width: 80px;"></ion-skeleton-text>
+        </ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <div *ngIf="!StatusLoad">
+    <ion-list>
+      <ion-card *ngFor="let item of [1, 2]" button>
+        <ion-item lines="none">
+          <ion-label>
+            <ion-skeleton-text animated style="width: 95%"></ion-skeleton-text>
+          </ion-label>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-icon slot="start" color="medium" name="call-outline"></ion-icon>
+          <ion-label>
+            <ion-skeleton-text animated style="width: 95%"></ion-skeleton-text>
+          </ion-label>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-icon slot="start" color="medium" name="timer-outline"></ion-icon>
+          <ion-label>
+            <ion-skeleton-text animated style="width: 95%"></ion-skeleton-text>
+          </ion-label>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-icon color="medium" slot="start" name="home-outline"></ion-icon>
+          <ion-label>
+            <ion-skeleton-text animated style="width: 95%"></ion-skeleton-text>
+          </ion-label>
+        </ion-item>
+        <ion-item color="light" lines="none">
+          <ion-skeleton-text animated style="width: 95%"></ion-skeleton-text>
+        </ion-item>
+      </ion-card>
+    </ion-list>
+  </div>
+
+  <div *ngIf="StatusLoad">
+    <ion-list>
+      <ion-card *ngFor="let item of getStore()" button (click)="navigate(item)">
+        <img style="width: 100%;" src="../../../assets/storeImage/{{item.image}}" />
+        <ion-item lines="none">
+          <ion-icon slot="start" color="success" name="call-outline"></ion-icon>
+          <ion-label color="medium">{{item?.phone}}</ion-label>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-icon slot="start" color="success" name="timer-outline"></ion-icon>
+          <ion-label color="medium">08:00-22:00</ion-label>
+        </ion-item>
+      </ion-card>
+    </ion-list>
+  </div>
+</ion-content>

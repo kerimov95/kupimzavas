@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home/tabs/stores/groups" color="success"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Скидки</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content [scrollEvents]="true" id="listScroll">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-searchbar [(ngModel)]="searchText" (ionInput)="runSearch()" (ionChange)="search()" debounce=1000>
+      </ion-searchbar>
+    </ion-toolbar>
+  </ion-header>
+  <app-shop [Products]="getProducts" [storeId]="storeId"></app-shop>
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

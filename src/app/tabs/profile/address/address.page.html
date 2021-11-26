@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Выбор адреса</ion-title>
+    <ion-button color="dark" mode="ios" slot="start" (click)="cancel()" fill="clear" size="small">
+      Отмена
+    </ion-button>
+    <ion-button color="success" mode="ios"ƒ slot="end" size="small" (click)="addAddress()">
+      Добавить
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-list-header>
+      Список адресов
+    </ion-list-header>
+    <ion-card *ngFor="let item of getAddresses()">
+      <ion-item lines="none">
+        <ion-icon color="primary" slot="start" name="home-outline"></ion-icon>
+        <ion-label>Мой адрес </ion-label>
+        <ion-button slot="end" mode="ios" (click)="deleteAddre(item)" color="danger">
+          Удалить
+        </ion-button>
+        <ion-button slot="end" mode="ios" (click)="clickAddress(item)" color="success">
+          Выбрать
+        </ion-button>
+      </ion-item>
+      <ion-card-content>
+        <ion-text>
+          <h2> {{item?.address}}</h2>
+        </ion-text>
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
+</ion-content>

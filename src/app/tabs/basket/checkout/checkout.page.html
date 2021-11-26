@@ -1,0 +1,157 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home/tabs/basket"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Оформление заказа</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="!statusLoad">
+    <ion-card>
+      <ion-item lines="none">
+        <ion-icon color="medium" slot="start" name="home-outline"></ion-icon>
+        <ion-label>
+          <h3>
+            <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+          </h3>
+        </ion-label>
+      </ion-item>
+      <ion-card-header>
+        <ion-label>
+          <ion-skeleton-text animated style="width: 95%"></ion-skeleton-text>
+        </ion-label>
+        <ion-label>
+          <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+        </ion-label>
+      </ion-card-header>
+      <ion-item lines="none">
+        <ion-icon color="medium" slot="start" name="timer-outline"></ion-icon>
+        <ion-label>
+          <h3>
+            <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+          </h3>
+        </ion-label>
+      </ion-item>
+      <ion-card-header>
+        <ion-label>
+          <ion-skeleton-text animated style="width: 95%"></ion-skeleton-text>
+        </ion-label>
+        <ion-label>
+          <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+        </ion-label>
+      </ion-card-header>
+      <ion-item lines="none">
+        <ion-icon slot="start" color="medium" name="help-circle-outline"></ion-icon>
+        <ion-label>
+          <h3>
+            <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+          </h3>
+        </ion-label>
+      </ion-item>
+      <ion-card-header>
+        <ion-label>
+          <ion-skeleton-text animated style="width: 95%"></ion-skeleton-text>
+        </ion-label>
+        <ion-label>
+          <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+        </ion-label>
+      </ion-card-header>
+    </ion-card>
+  </div>
+  <div *ngIf="statusLoad">
+    <ion-card>
+      <ion-item lines="none">
+        <ion-icon color="success" slot="start" name="home-outline"></ion-icon>
+        <ion-label>
+          <p>
+            <ion-text color="dark">
+              Адрес доставки
+            </ion-text>
+          </p>
+        </ion-label>
+        <ion-button slot="end" mode="ios" (click)="selectAddress()" color="success">
+          Изменить
+        </ion-button>
+      </ion-item>
+      <div class="mySelect" style="padding: 15px;">
+        <ion-text color="medium">
+          {{ getCurrentAddress?.address }}
+        </ion-text>
+      </div>
+      <ion-item lines="none">
+        <ion-icon color="success" slot="start" name="timer-outline"></ion-icon>
+        <ion-label>
+          <p>
+            <ion-text color="dark">
+              Время доставки
+            </ion-text>
+          </p>
+        </ion-label>
+      </ion-item>
+      <div class="mySelect">
+        <ion-select placeholder="Выберите время доставки" [(ngModel)]="currenDelivery"
+          style="text-align: center; margin: 5px;" interface="action-sheet">
+          <ion-select-option *ngFor="let item of getDeliveryType" value="{{item.id}}">{{item?.from}} - {{item?.before}}
+          </ion-select-option>
+        </ion-select>
+      </div>
+      <ion-item lines="none">
+        <ion-icon slot="start" color="success" name="help-circle-outline"></ion-icon>
+        <ion-label>
+          <p>
+            <ion-text color="dark">
+              В случае отсутствия товара?
+            </ion-text>
+          </p>
+        </ion-label>
+      </ion-item>
+      <div class="mySelect">
+        <ion-select placeholder="Выберите условие" [(ngModel)]="currentAgreementParent"
+          style="text-align: center; margin: 5px;" interface="action-sheet">
+          <ion-select-option *ngFor="let item of getAgreementParent" value="{{item.id}}">{{item?.name}}
+          </ion-select-option>
+        </ion-select>
+      </div>
+      <div *ngIf="getAgreementChild?.length > 0">
+        <ion-item lines="none">
+          <ion-icon slot="start" color="success" name="help-circle-outline"></ion-icon>
+          <ion-label class="ion-text-wrap">
+            <p>
+              <ion-text color="dark">
+                Eсли Вы не подтвердите изменения в течение 5 минут?
+              </ion-text>
+            </p>
+          </ion-label>
+        </ion-item>
+        <div class="mySelect">
+          <ion-select placeholder="Выберите условие" [(ngModel)]="currentAgreementChild"
+            style="text-align: center; margin: 5px;" interface="action-sheet">
+            <ion-select-option *ngFor="let item of getAgreementChild" value="{{item.id}}">{{item?.name}}
+            </ion-select-option>
+          </ion-select>
+        </div>
+      </div>
+      <ion-item *ngIf="!timeStatus" lines="none">
+        <ion-label class="ion-text-center">
+          <ion-text class="ion-text-center" color="primary">
+            <h6>Уже поздно...</h6>
+          </ion-text>
+          <ion-text class="ion-text-center" color="dark">
+            <h3>Часы приема с 9:00 до 22:00</h3>
+          </ion-text>
+        </ion-label>
+      </ion-item>
+    </ion-card>
+  </div>
+</ion-content>
+<ion-footer>
+  <ion-toolbar style="height: 60px;">
+    <ion-button
+      [disabled]="!currenDelivery || !currentAgreementParent || !getCurrentAddress || (getAgreementChild?.length > 0 && !currentAgreementChild)"
+      (click)="save()" mode="ios" expand="block" color="success">
+      Оформить
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>

@@ -1,0 +1,75 @@
+<ion-list *ngIf="!Products || !loadPage">
+  <ion-row class="market-card">
+    <ion-col *ngFor="let item of [1,2,3,4,5,6,7,8,9,10]" size="6" size-sm>
+      <ion-card>
+        <ion-avatar
+          style="margin-left: auto; margin-right: auto; margin-top: 5px; height: 100px; width: 100px; display: block;">
+          <ion-skeleton-text animated></ion-skeleton-text>
+        </ion-avatar>
+        <ion-card-content>
+          <p>
+            <ion-text>
+              <h6>
+                <ion-skeleton-text animated style="width: 90%"></ion-skeleton-text>
+              </h6>
+            </ion-text>
+            <ion-text color="primary">
+              <h6>
+                <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+              </h6>
+            </ion-text>
+            <ion-text color="dark">
+              <h6>
+                <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+              </h6>
+            </ion-text>
+          </p>
+        </ion-card-content>
+        <div class="footer">
+        </div>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+</ion-list>
+<ion-list *ngIf="Products && loadPage">
+  <ion-row class="market-card">
+    <ion-col size="6" size-sm *ngFor="let item of Products">
+      <ion-card [disabled]="item.stock <= 0">
+        <div *ngIf="item.discount > 0" class="sale">
+          -{{getSale(item.id)}}%
+        </div>
+        <div class="div-image">
+          <ion-img (click)="productDetail(item.id)" [src]="PathImage(item?.barcode)"></ion-img>
+        </div>
+        <ion-card-content>
+          <p>
+            <ion-text>
+              <h6>{{item.name}} {{item.full_description}} {{item.brand}} {{ item?.weightPackage}}</h6>
+            </ion-text>
+            <ion-text class="ion-text-right" *ngIf="item?.discount > 0" color="medium">
+              <h6 style="text-decoration:line-through"> {{item?.price}} руб.</h6>
+            </ion-text>
+            <ion-text class="ion-text-right" color="primary">
+              <h6 style="font-weight:bold"> {{getPrice(item?.id)}} руб.</h6>
+            </ion-text>
+            <ion-text class="ion-text-center" color="warning">
+              <h6 style="font-weight: bold;"> {{getAmoutProduct(item.id) }}</h6>
+            </ion-text>
+            <ion-text class="ion-text-center" *ngIf="item.stock <= 0" color="danger">
+              <h6>товар закончился</h6>
+            </ion-text>
+          </p>
+        </ion-card-content>
+        <div>
+          <ion-button [disabled]="item.stock <= 0" (click)="addToBasket(item)" color="medium" fill="clear"
+            style="right: 0;">
+            <ion-icon slot="icon-only" name="add"></ion-icon>
+          </ion-button>
+          <ion-button [disabled]="item.stock <= 0" (click)="removeFromBasket(item)" color="medium" fill="clear">
+            <ion-icon slot="icon-only" name="remove"></ion-icon>
+          </ion-button>
+        </div>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+</ion-list>

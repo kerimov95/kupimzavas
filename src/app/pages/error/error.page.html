@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Сервер не доступен</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="ion-text-center">
+    <ion-item lines="none">
+      <ion-icon name="sad-outline"></ion-icon>
+      <ion-label>
+        <h1>Oops!</h1>
+      </ion-label>
+    </ion-item>
+    <h3>Сервер не ответил. Попробуйте позже.</h3>
+    <p>
+      Если ошибка повторится обратитесь в сервис технической поддержки
+    </p>
+  </div>
+  <ion-button (click)="goBack()" expand="block" fill="clear" color="success">
+    Попробовать снова
+  </ion-button>
+</ion-content>

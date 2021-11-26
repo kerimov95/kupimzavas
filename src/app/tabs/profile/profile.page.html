@@ -1,0 +1,108 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Профиль</ion-title>
+    <ion-button slot="end" size="small" (click)="editProfile()" color="success">
+      Сохранить
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <div *ngIf="StatusLoad">
+    <ion-item>
+      <ion-icon color="success" slot="start" name="call-outline"></ion-icon>
+      <ion-label>Телефон</ion-label>
+      <ion-input id="phone" name="phone" [(ngModel)]="prof.user.phone" class="ion-text-end" color="medium" type="text"
+        readonly></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-icon color="success" slot="start" name="person-circle-outline"></ion-icon>
+      <ion-label>Имя</ion-label>
+      <ion-input id="name" name="name" [(ngModel)]="prof.user.name" class="ion-text-end" color="medium" type="text"
+        inputmode="text"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-icon color="success" slot="start" name="mail-outline"></ion-icon>
+      <ion-label>@Mail</ion-label>
+      <ion-input id="email" name="email" [(ngModel)]="prof.user.email" class="ion-text-end" color="medium" type="email"
+        inputmode="email"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-icon color="success" slot="start" name="calendar-outline"></ion-icon>
+      <ion-label>Дата рождения</ion-label>
+      <ion-datetime id="birthday" name="birthday" [(ngModel)]="prof.user.birthday" displayFormat="DD.MM.YYYY"
+        min="1950-01-01">
+      </ion-datetime>
+    </ion-item>
+    <ion-card>
+      <ion-item lines="none">
+        <ion-icon color="success" slot="start" name="home-outline"></ion-icon>
+        <ion-label>Адрес</ion-label>
+        <ion-button slot="end" (click)="address()" color="success">
+          Изменить
+        </ion-button>
+      </ion-item>
+
+      <ion-card-content>
+        <ion-text *ngIf="prof.user.address">
+          <h2> {{ prof.user.address?.address }}</h2>
+        </ion-text>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-button style="margin: 15px;" color="danger" expand="block" (click)="out()">
+      Выйти
+    </ion-button>
+  </div>
+
+  <div *ngIf="!StatusLoad">
+    <ion-item>
+      <ion-icon color="medium" slot="start" name="call-outline"></ion-icon>
+      <ion-label>
+        <ion-skeleton-text style="width: 85%;" animated>
+        </ion-skeleton-text>
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-icon color="medium" slot="start" name="person-circle-outline"></ion-icon>
+      <ion-label>
+        <ion-skeleton-text style="width: 85%;" animated>
+        </ion-skeleton-text>
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-icon color="medium" slot="start" name="mail-outline"></ion-icon>
+      <ion-label>
+        <ion-skeleton-text style="width: 85%;" animated>
+        </ion-skeleton-text>
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-icon color="medium" slot="start" name="calendar-outline"></ion-icon>
+      <ion-label>
+        <ion-skeleton-text style="width: 85%;" animated>
+        </ion-skeleton-text>
+      </ion-label>
+    </ion-item>
+    <ion-card>
+      <ion-item lines="none">
+        <ion-icon color="medium" slot="start" name="home-outline"></ion-icon>
+        <ion-label>
+          <ion-skeleton-text style="width: 55%;" animated></ion-skeleton-text>
+        </ion-label>
+      </ion-item>
+      <ion-card-content>
+        <ion-label>
+          <ion-skeleton-text style="width: 100%" animated></ion-skeleton-text>
+        </ion-label>
+        <ion-label>
+          <ion-skeleton-text style="width: 95%" animated></ion-skeleton-text>
+        </ion-label>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

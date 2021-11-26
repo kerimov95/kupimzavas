@@ -1,0 +1,17 @@
+div.scrollmenu {
+    overflow: auto;
+    white-space: nowrap;
+}
+
+div.scrollmenu a {
+    display: inline-block;
+    text-align: center;
+    padding: 15px;
+    text-decoration: none;
+}
+
+.Current {
+    border-radius: 15px;
+    color: white;
+    background: #2dd36f;
+}

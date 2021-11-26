@@ -1,0 +1,91 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{title}}</ion-title>
+    <ion-button (click)="close()" mode="ios" fill="clear" size="small" color="dark">
+      Закрыть
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="!StatusLoad">
+    <ion-thumbnail
+      style="margin-left: auto; margin-right: auto; margin-top: 15px; display: block; position: relative; height: 200px; width: 200px;">
+      <ion-skeleton-text animated></ion-skeleton-text>
+    </ion-thumbnail>
+    <ion-list>
+      <ion-item lines="none">
+      </ion-item>
+      <ion-item lines="none">
+        <ion-label color="medium">
+          <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+        </ion-label>
+      </ion-item>
+      <ion-item lines="full">
+        <ion-label color="medium">
+          <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+        </ion-label>
+      </ion-item>
+      <ion-item lines="full">
+        <ion-label color="medium">
+          <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+        </ion-label>
+      </ion-item>
+      <ion-item lines="full">
+        <ion-label color="medium">
+          <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
+  <div *ngIf="StatusLoad">
+    <ion-img *ngIf="getProduct" style="height:40vh; margin: 20px; display: block; position: relative;"
+      src="{{basePath}}/image/productfull?code={{getProduct?.barcode}}"></ion-img>
+    <ion-list>
+      <ion-item lines="none">
+        <ion-text style="margin: auto;" color="dark">
+          <h5>
+            {{getProduct?.name}} {{getProduct?.full_description}}
+          </h5>
+        </ion-text>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-label color="medium">Цена</ion-label>
+        <ion-label>
+          <ion-text style="font-weight: bold;" color="primary">
+            {{ getPrice()}} руб.
+          </ion-text>
+        </ion-label>
+      </ion-item>
+      <ion-item-group>
+        <ion-item-divider color="success">
+          <ion-label>Информация</ion-label>
+        </ion-item-divider>
+        <ion-item *ngIf="getProduct.weightPackage" lines="full">
+          <ion-label color="medium">Кол-во</ion-label>
+          <ion-label class="ion-text-wrap">{{getProduct?.weightPackage}}</ion-label>
+        </ion-item>
+        <ion-item *ngIf="getProduct.brand" lines="full">
+          <ion-label color="medium">Бренд</ion-label>
+          <ion-label class="ion-text-wrap">{{getProduct?.brand}}</ion-label>
+        </ion-item>
+        <ion-item *ngIf="getProduct.supplier" lines="full">
+          <ion-label color="medium">Производитель</ion-label>
+          <ion-label class="ion-text-wrap">{{getProduct?.supplier}}</ion-label>
+        </ion-item>
+        <ion-item *ngIf="getProduct.country" lines="full">
+          <ion-label color="medium">Страна</ion-label>
+          <ion-label class="ion-text-wrap">{{getProduct?.country}}</ion-label>
+        </ion-item>
+        <ion-item *ngIf="getProduct.ingridients" lines="full">
+          <ion-label color="medium">Состав</ion-label>
+          <ion-label class="ion-text-wrap">{{getProduct?.ingridients}}</ion-label>
+        </ion-item>
+        <ion-item *ngIf="getProduct.nutritionalValue" lines="full">
+          <ion-label color="medium">Пищевая ценность</ion-label>
+          <ion-label class="ion-text-wrap">{{getProduct?.nutritionalValue}}</ion-label>
+        </ion-item>
+      </ion-item-group>
+    </ion-list>
+  </div>
+</ion-content>

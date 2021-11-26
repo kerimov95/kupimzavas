@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home/tabs/stores/groups" color="success"></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      {{ title }}
+    </ion-title>
+  </ion-toolbar>
+  <ion-toolbar>
+    <div class="scrollmenu">
+      <a [ngClass]="{'Current': currentCategory==item.id}" *ngFor="let item of getCategories"
+        (click)="loadProducts(item.id)">{{item.name}}</a>
+    </div>
+  </ion-toolbar>
+</ion-header>
+<ion-content [scrollEvents]="true" id="listScroll">
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <app-shop [Products]="getProducts" [storeId]="storeId"></app-shop>
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>
